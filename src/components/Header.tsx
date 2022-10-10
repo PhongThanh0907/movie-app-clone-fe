@@ -4,6 +4,7 @@ import {
   AiOutlineInstagram,
   AiFillYoutube,
   AiOutlineClose,
+  AiOutlineUser,
 } from "react-icons/ai";
 import { FaTiktok, FaFacebookF } from "react-icons/fa";
 import Button from "./Button";
@@ -44,12 +45,12 @@ const Header = () => {
         >
           {openMenu ? (
             <>
-              <AiOutlineClose className="m-auto text-3xl text-mainColor" />
+              <AiOutlineClose className="m-auto text-3xl text-mainColor sm:text-xl" />
               <p className="text-sm text-[white] font-bold">ĐÓNG</p>
             </>
           ) : (
             <>
-              <CgFormatJustify className="m-auto text-3xl text-mainColor" />
+              <CgFormatJustify className="m-auto text-3xl text-mainColor sm:text-xl" />
               <p className="text-sm text-[white] font-bold">MENU</p>
             </>
           )}
@@ -57,8 +58,8 @@ const Header = () => {
           {!openMenu ? (
             <div className="absolute bg-[black] left-0 p-3 pl-10 text-sm text-[#bfbfbf] top-0 transition w-[350px] opacity-0"></div>
           ) : (
-            <div className="absolute bg-[black] left-0 p-3 pl-10 text-xl text-[#bfbfbf] top-[80px] text-left transition w-[350px]">
-              <ul className="pr-20">
+            <div className="absolute bg-[black] left-0 p-3 pl-10 text-xl text-[#bfbfbf] top-[80px] text-left transition w-[350px] sm:w-[280px]">
+              <ul className="pr-20 sm:text-sm">
                 <Link to="/">
                   <li className="menu-list">LỊCH CHIẾU</li>
                 </Link>
@@ -81,30 +82,35 @@ const Header = () => {
             </div>
           )}
         </div>
-        <div>
+        <div className="sm:hidden">
           <Button name="Mua Vé" />
         </div>
       </div>
 
-      <div className="z-10 absolute left-[47%] top-[22%]">
+      <div className="z-10 absolute left-[47%] top-[22%] sm:left-[43%]">
         <Link to="/">
-          <img className="w-[70%]" src={Logo} alt="" />
+          <img className="w-[70%] sm:w-[50%]" src={Logo} alt="" />
         </Link>
       </div>
 
       <div className="flex gap-4 pr-6 items-center">
-        <div className="text-[white] grid grid-cols-4 gap-4">
+        <div className="text-[white] grid grid-cols-4 gap-4 sm:hidden">
           <AiOutlineInstagram className="menu-item" />
           <FaTiktok className="menu-item" />
           <AiFillYoutube className="menu-item" />
           <FaFacebookF className="menu-item" />
         </div>
-        <div className="px-4">
-          <Button name="Đăng Nhập" />
+        <div className="lt:px-4">
+          <button className="lt:hidden sm:text-[white] sm:text-xl p-3 transparent sm:ml-3">
+            <AiOutlineUser />
+          </button>
+          <div className="sm:hidden">
+            <Button name="Đăng Nhập" />
+          </div>
         </div>
       </div>
       <img
-        className="absolute bottom-[-39%] left-[17%]"
+        className="absolute bottom-[-39%] left-[17%] sm:hidden"
         src={lineHeader}
         alt="logo"
       />
