@@ -8,18 +8,77 @@
   box-sizing: border-box;
 }
 
-.transparent{
+.transparent {
   background-color: rgb(43, 43, 43);
 }
 .transition {
   transition: all 0.5s ease;
 }
+.duration {
+  cursor: pointer;
 
+  transition-duration: 300ms;
+}
+.footer-item {
+  padding: 5px 0;
+  cursor: pointer;
+  transition-duration: 300ms;
+}
+.footer-item:hover{
+  text-decoration: underline;
+  color: white
+}
+.title-showtimes{
+  transition-duration: 300ms;
+  cursor: pointer;
+  font-size:larger;
+}
+.title-showtimes:hover{
+  text-decoration: underline;
+  color: #d4dd29
+}
+.title-cinema{
+  transition-duration: 300ms;
+  cursor: pointer;
+  font-weight: 600
+}
+.title-cinema:hover{
+  color: #d4dd29
+}
+.button-share{
+  background-color: #3b5998;
+  color: #a9b7c4;
+  padding: 2px 8px;
+  transition-duration: 300ms;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.button-share:hover{
+  color: black;
+  background-color: #d4dd29
+}
+.img-cinema{
+  border: 5px solid #20812b
+}
+.showtime-item{
+  padding: 12px 20px;
+  text-align: center;
+  background-color: #10171e;
+  color: #97a5be;
+  font-weight: 600;
+  font-size: large;
+  transition-duration: 300ms;
+  cursor: pointer;
+}
+.showtime-item:hover{
+  color: white;
+  background-color: #42af33;
+}
 @layer components {
   .menu-item {
-    @apply text-4xl p-1 border rounded-lg cursor-pointer
+    @apply text-4xl p-1 border rounded-lg cursor-pointer;
   }
   .menu-list {
-    @apply py-2 hover:text-mainColor duration-300
+    @apply py-2 hover:text-mainColor duration-300;
   }
 }

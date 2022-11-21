@@ -1,62 +1,118 @@
-import React, { useRef } from "react";
 import ItemFilm from "../../components/ItemFilm";
-import { MdChevronRight, MdChevronLeft } from "react-icons/md";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../store";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import BackGround from "../../assets/background1.jpg";
+import { getMovieList } from "../../redux/movies";
 
-type Props = {};
+const ListFilm = () => {
+  const [tabs, setTab] = useState(false);
+  const { data, error, isLoading } = useSelector(
+    (state: RootState) => state.movies
+  );
 
-const ListFilm = (props: Props) => {
-  const slider = useRef<HTMLDivElement | null>(null);
-  const slideLeft = () => {
-    if (slider.current)
-      slider.current.scrollLeft = slider.current.scrollLeft - 500;
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getMovieList());
+  }, []);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
+
+  console.log(data);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+  };
+  const settingsSM = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 2,
+    slidesToScroll: 1,
   };
 
-  const slideRight = () => {
-    if (slider.current)
-      slider.current.scrollLeft = slider.current.scrollLeft + 500;
-  };
   return (
-    <div className="pt-[50px]">
-      <div>
-        <div>
-          <h1>PHIM ĐANG CHIẾU</h1>
-          <h1>PHIM SẮP CHIẾU</h1>
-          <h1>VÉ BÁN TRƯỚC</h1>
-        </div>
-        <div className="relative flex items-center group">
-          <MdChevronLeft
-            onClick={slideLeft}
-            className="bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-            size={40}
-          />
-          <div
-            id={"slider"}
-            className="w-80% m-auto h-full overflow-scroll overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative flex"
+    <div className="mt-[10px] relative h-[600px] sm:h-[500px]">
+      <div className="relative top-0 z-10 left-0 text-[white] h-full">
+        <div className="text-center pt-8 flex justify-center gap-6 text-xl sm:text-sm sm:gap-2">
+          <h1
+            onClick={() => setTab(false)}
+            className="hover:underline hover:text-mainColor duration"
           >
-            <ItemFilm />
-            <ItemFilm />
-            <ItemFilm />
-            <ItemFilm />
-            <ItemFilm />
-            <ItemFilm />
-            <ItemFilm />
-          </div>
-          <MdChevronRight
-            onClick={slideRight}
-            className="bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-            size={40}
-          />
+            PHIM ĐANG CHIẾU
+          </h1>
+          <h1
+            onClick={() => setTab(true)}
+            className="hover:underline hover:text-mainColor duration"
+          >
+            PHIM SẮP CHIẾU
+          </h1>
+          <h1 className="hover:underline hover:text-mainColor duration">
+            VÉ BÁN TRƯỚC
+          </h1>
         </div>
+        {tabs ? (
+          <>
+            <div className="w-[90%] m-auto sm:hidden">
+              <Slider className="gap-2 " {...settings}>
+                {data
+                  .filter((item) => item.upcomingMovie)
+                  .map((itemData) => (
+                    <ItemFilm
+                      key={itemData._id}
+                      img={itemData.photos}
+                      title={itemData.tenPhim}
+                      idFilm={itemData._id}
+                    />
+                  ))}
+              </Slider>
+            </div>
+            <div className="w-[85%] m-auto lt:hidden">
+              <Slider className="gap-2 " {...settingsSM}></Slider>
+            </div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <div className="w-[90%] m-auto sm:hidden">
+              <Slider className="gap-2 " {...settings}>
+                {data
+                  .filter((item) => !item.upcomingMovie)
+                  .map((itemData, index) => (
+                    <ItemFilm
+                      key={index}
+                      img={itemData.photos}
+                      title={itemData.tenPhim}
+                      idFilm={itemData._id}
+                    />
+                  ))}
+              </Slider>
+            </div>
+            <div className="w-[85%] m-auto lt:hidden">
+              <Slider className="gap-2 " {...settingsSM}></Slider>
+            </div>
+          </>
+        )}
       </div>
-      <div className="flex overflow-x-scroll gap-10 whitespace-nowrap relative">
-        <ItemFilm />
-        <ItemFilm />
-        <ItemFilm />
-        <ItemFilm />
-        <ItemFilm />
-        <ItemFilm />
-        <ItemFilm />
-      </div>
+      <img
+        className="absolute top-0 z-0 h-full w-full"
+        src={BackGround}
+        alt="background"
+      />
     </div>
   );
 };

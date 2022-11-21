@@ -34,8 +34,8 @@ const Header = () => {
     <div
       className={
         scrolled
-          ? "bg-[black] flex justify-between items-center h-[50px] relative duration-300 z-50"
-          : "bg-[black] flex justify-between items-center h-[80px] relative  duration-300 z-50"
+          ? "bg-[black] flex justify-between items-center h-[60px] relative duration-300 z-30"
+          : "bg-[black] flex justify-between items-center h-[80px] relative  duration-300 z-30"
       }
     >
       <div className="flex items-center gap-5">
@@ -60,15 +60,15 @@ const Header = () => {
           ) : (
             <div className="absolute bg-[black] left-0 p-3 pl-10 text-xl text-[#bfbfbf] top-[80px] text-left transition w-[350px] sm:w-[280px]">
               <ul className="pr-20 sm:text-sm">
-                <Link to="/">
+                <Link to="/lich-chieu-theo-phim">
                   <li className="menu-list">LỊCH CHIẾU</li>
                 </Link>
-                <Link to="/">
+                <Link to="/he-thong-rap">
                   <li className="menu-list">HỆ THỐNG RẠP</li>
                 </Link>
-                <Link to="/">
+                <a href="#promotion">
                   <li className="menu-list">KHUYẾN MÃI | SỰ KIỆN</li>
-                </Link>
+                </a>
                 <Link to="/">
                   <li className="menu-list">DỊCH VỤ QUẢNG CÁO</li>
                 </Link>
@@ -105,7 +105,9 @@ const Header = () => {
             <AiOutlineUser />
           </button>
           <div className="sm:hidden">
-            <Button name="Đăng Nhập" />
+            <Link to="/dang-nhap">
+              <Button name="Đăng Nhập" />
+            </Link>
           </div>
         </div>
       </div>
